@@ -37,7 +37,7 @@ rule("set_rpath")
 do
   on_load(function(target)
     if target:kind() == "binary" and not is_plat("windows") then
-        target:add("rpathdirs", "$ORIGIN")
+      target:add("rpathdirs", "$ORIGIN")
     end
   end)
 end
