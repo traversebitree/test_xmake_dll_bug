@@ -47,4 +47,5 @@ jobs:
       - name: Test build
         working-directory: ${{ github.workspace }}
         run: |
-          xmake build main -y
+          xmake -y
+          xmake install -o ${{ github.workspace }}/.install

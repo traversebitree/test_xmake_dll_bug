@@ -65,9 +65,9 @@ do
     set_kind("binary")
     add_files("src/main/main.cpp")
     add_deps("shared_lib")
-    after_build(
+    after_install(
         function(target)
-            os.execv("xmake install -o $(projectdir)/.install -y")
+            os.execv("xmake run main")
         end
     )
 end
