@@ -1,19 +1,24 @@
-add_rules("mode.debug", "mode.release")
+add_rules("mode.debug", "mode.release", "set_export_all_symbols")
+
+rule("set_export_all_symbols")
+    on_load(function (target)
+        if target:kind()=="static" then
+            target:set("kind","static")
+        elseif target:kind()=="shared" then
+            target:set("kind","shared")
+            if is_plat("windows") then 
+                import("core.project.rule")
+                local rule = rule.rule("utils.symbols.export_all")
+                target:rule_add(rule)
+                target:extraconf_set("rules", "utils.symbols.export_all", {export_classes = true})
+            end
+        end
+    end)
+rule_end()
 
 target("shared_lib")
-    set_kind("shared")
+    set_kind("shared")    
     add_files("src/shared_lib/libabc_shared.cpp")
-    -- Debug info
-    if is_kind("shared") then
-       print("[Debug Print] is shared.") 
-    end
-    if is_kind("static") then
-       print("[Debug Print] is static") 
-    end
-    -- End Debug info
-    if is_plat("windows") and is_kind("shared") then
-        add_rules("utils.symbols.export_all", {export_classes = true})
-    end
 
 target("main")
     set_kind("binary")
