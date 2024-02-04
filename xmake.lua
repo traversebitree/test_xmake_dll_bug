@@ -1,6 +1,8 @@
-add_rules("mode.debug", "mode.release", "set_export_all_symbols")
+add_rules("mode.debug", "mode.release")
+add_rules("set_export_all_symbols")
 
 rule("set_export_all_symbols")
+do 
     on_load(function (target)
         if target:kind()=="static" then
             target:set("kind","static")
@@ -14,16 +16,20 @@ rule("set_export_all_symbols")
             end
         end
     end)
-rule_end()
+end 
 
 target("shared_lib")
+do
     set_kind("shared")    
     add_files("src/shared_lib/libabc_shared.cpp")
+end
 
 target("main")
+do
     set_kind("binary")
     add_files("src/main/main.cpp")
     add_deps("shared_lib")
+end
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
