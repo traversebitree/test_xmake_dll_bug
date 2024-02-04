@@ -55,13 +55,11 @@ target_end()
 
 target("main")
 do
-    set_kind("binary")
-    add_files("src/main/main.cpp")
-    add_deps("shared_lib")
-    after_install(
-        function(target)
-            os.execv("xmake run main")
-        end
-    )
+	set_kind("binary")
+	add_files("src/main/main.cpp")
+	add_deps("shared_lib")
+	after_install(function(target)
+		os.execv("xmake run main")
+	end)
 end
 target_end()
