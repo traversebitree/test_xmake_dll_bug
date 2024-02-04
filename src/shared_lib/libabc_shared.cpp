@@ -3,8 +3,9 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-#include <iostream>
+#include <fmt/core.h>
+#include <shared_lib/libabc_shared.hpp>
 
 void print_a_plus_b(int a, int b) {
-  std::cout << "[Shared] a + b =" << a + b << std::endl;
+  fmt::print("[Shared] a + b = {}\n", a + b);
 }

@@ -1,8 +1,7 @@
 #include <iostream>
+#include <shared_lib/libabc_shared.hpp>
 
 using namespace std;
-
-void print_a_plus_b(int a, int b);
 
 int main(int argc, char **argv) {
   cout << "[Shared] hello world!" << endl;
