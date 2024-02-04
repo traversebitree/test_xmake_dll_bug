@@ -5,7 +5,7 @@ set_languages("cxx20")
 
 add_rules("mode.debug", "mode.release")
 add_rules("set_export_all_symbols")
-add_rules("set_rpath")
+-- add_rules("set_rpath")
 
 add_requires("fmt 10.x", {
   debug = is_mode("debug"),
