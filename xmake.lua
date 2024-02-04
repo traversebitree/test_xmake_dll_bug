@@ -7,12 +7,15 @@ add_rules("mode.debug", "mode.release")
 add_rules("set_export_all_symbols")
 add_rules("set_rpath")
 
-add_requires("fmt 10.x", {
-    debug = is_mode("debug"),
-    configs = {
-        shared = true
+add_requires(
+    "fmt 10.x",
+    {
+        debug = is_mode("debug"),
+        configs = {
+            shared = true
+        }
     }
-})
+)
 
 rule("set_export_all_symbols")
 do
@@ -51,8 +54,8 @@ target("shared_lib")
 do
     set_kind("shared")
     add_files("src/shared_lib/libabc_shared.cpp")
-    add_includedirs("include/",{public=true})
-    add_headerfiles("include/shared_lib/libabc_shared.hpp",{install=true})
+    add_includedirs("include/", {public = true})
+    add_headerfiles("include/shared_lib/libabc_shared.hpp", {install = true, prefixdir = "shared_lib"})
     add_packages("fmt")
 end
 target_end()
@@ -62,9 +65,10 @@ do
     set_kind("binary")
     add_files("src/main/main.cpp")
     add_deps("shared_lib")
-    after_build(function(target)
-        os.execv("xmake install -o $(projectdir)/.install")
-    end)
+    after_build(
+        function(target)
+            os.execv("xmake install -o $(projectdir)/.install -y")
+        end
+    )
 end
 target_end()
-
