@@ -20,16 +20,23 @@ do
         end
     )
 end
+rule_end()
 
 target("shared_lib")
 do
     set_kind("shared")
     add_files("src/shared_lib/libabc_shared.cpp")
 end
+target_end()
 
 target("main")
 do
     set_kind("binary")
     add_files("src/main/main.cpp")
     add_deps("shared_lib")
+    after_build(function(target)
+        os.execv("xmake install -o $(projectdir)/.install")
+    end)
 end
+target_end()
+
