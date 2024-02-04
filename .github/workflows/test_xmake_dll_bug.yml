@@ -1,0 +1,28 @@
+name: test_xmake_dll_bug
+
+on:
+  - push
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        version: [latest, branch@master, branch@dev]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: xmake-io/github-action-setup-xmake@master
+        with:
+          xmake-version: ${{ matrix.version }}
+      - name: Run setup xmake and test
+        run: |
+          xmake --version
+
+      - name: Test build
+        run: |
+          working-directory: ${{ github.workspace }}
+          xmake
+          
