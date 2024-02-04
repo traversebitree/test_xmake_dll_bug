@@ -49,3 +49,4 @@ jobs:
         run: |
           xmake -y
           xmake install -o ${{ github.workspace }}/.install
+          xmake run main

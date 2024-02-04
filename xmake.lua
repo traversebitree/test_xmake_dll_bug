@@ -5,7 +5,7 @@ set_languages("cxx20")
 
 add_rules("mode.debug", "mode.release")
 add_rules("set_export_all_symbols")
--- add_rules("set_rpath")
+add_rules("set_rpath")
 
 add_requires("fmt 10.x", {
   debug = is_mode("debug"),
@@ -36,7 +36,7 @@ rule_end()
 rule("set_rpath")
 do
   on_load(function(target)
-    if target:kind() == "binary" and not is_plat("windows") then
+    if (target:kind() == "binary" or target:kind() == "shared") and not is_plat("windows") then
       target:add("rpathdirs", "$ORIGIN")
     end
   end)
@@ -58,8 +58,5 @@ do
   set_kind("binary")
   add_files("src/main/main.cpp")
   add_deps("shared_lib")
-  after_install(function(target)
-    os.execv("xmake run main")
-  end)
 end
 target_end()
