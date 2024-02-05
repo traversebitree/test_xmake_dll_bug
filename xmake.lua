@@ -22,7 +22,7 @@ do
     elseif target:kind() == "shared" then
       import("core.tool.toolchain")
       target:set("kind", "shared")
-      if is_plat("windows") and toolchain.load("msvc"):config("vs") then
+      if is_plat("windows") and target:toolchains()[1]:config("vs") then
         import("core.project.rule")
         local rule = rule.rule("utils.symbols.export_all")
         target:rule_add(rule)
