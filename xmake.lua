@@ -13,7 +13,7 @@ add_requires("fmt 10.x", {
     shared = true,
   },
 })
-add_requires("onnxruntime 1.17.0", { verify = false })
+
 rule("set_export_all_symbols")
 do
   on_load(function(target)
@@ -49,7 +49,7 @@ do
   add_files("src/shared_lib/libabc_shared.cpp")
   add_includedirs("include/", { public = true })
   add_headerfiles("include/shared_lib/libabc_shared.hpp", { install = true, prefixdir = "shared_lib" })
-  add_packages("fmt")
+  add_packages("fmt", { public = true })
 end
 target_end()
 
