@@ -36,8 +36,8 @@ rule_end()
 rule("set_rpath")
 do
   on_load(function(target)
-    if (target:kind() == "binary" or target:kind() == "shared") and not is_plat("windows") then
-      target:add("rpathdirs", "$ORIGIN")
+    if (target:kind() == "binary" or target:kind() == "shared") and is_plat("linux") then
+      target:add("rpathdirs", "$ORIGIN/")
     end
   end)
 end
