@@ -13,7 +13,7 @@ add_requires("fmt 10.x", {
     shared = true,
   },
 })
-add_requires("onnxruntime")
+add_requires("onnxruntime 1.17.0" , {verify = false})
 rule("set_export_all_symbols")
 do
   on_load(function(target)
